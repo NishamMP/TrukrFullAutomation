@@ -86,5 +86,6 @@ public class LoginTest {
 	@AfterTest	
 	public void cleanUp() {
 		extent.flush();
+		driver.close();
 	}
 }
