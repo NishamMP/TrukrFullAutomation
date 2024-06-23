@@ -1,23 +1,26 @@
 package objects;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-//import org.openqa.selenium.WebElement;
+import java.time.Duration;
 
-public class LoginPageObjects {
-	WebDriver driver;
-	
-	public LoginPageObjects(WebDriver driver){
-		this.driver=driver;
-	}
+import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+//import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import com.framework.BaseTest;
+
+public class LoginPageObjects extends BaseTest{
 	By userNameField=By.id("username");
 	By passwordField=By.id("inputPassword");
-	By LoginButton=By.xpath("/html/body/app-root/app-login/div/div/div/div[1]/form/div/button[1]");
+	By loginButton=By.xpath("//button[.//span[text()='Login']]");
+	public WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 	public void sendDataTousernameFieldAndPasswordFieldAndEnterLoginButton(String userName,String userPassword) {
-		
-		driver.findElement(userNameField).sendKeys(userName);
-		driver.findElement(passwordField).sendKeys(userPassword);
-		driver.findElement(LoginButton).click();
+		wait.until(ExpectedConditions.elementToBeClickable(userNameField)).clear();
+		wait.until(ExpectedConditions.elementToBeClickable(passwordField)).clear();
+		wait.until(ExpectedConditions.elementToBeClickable(userNameField)).sendKeys(userName);;
+		wait.until(ExpectedConditions.elementToBeClickable(passwordField)).sendKeys(userPassword);;
+		wait.until(ExpectedConditions.elementToBeClickable(loginButton)).click();
 	}
+
 	
 }

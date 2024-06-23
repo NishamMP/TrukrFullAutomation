@@ -3,13 +3,12 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="testScenarios.LoginTest">
+      <class name="testScenarios.AddLocationMasterDataTest">
         <methods>
-          <include name="loginAndEnterToHomePage"/>
           <include name="setup"/>
-          <include name="cleanUp"/>
+          <include name="addLocationTest"/>
         </methods>
-      </class> <!-- testScenarios.LoginTest -->
+      </class> <!-- testScenarios.AddLocationMasterDataTest -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

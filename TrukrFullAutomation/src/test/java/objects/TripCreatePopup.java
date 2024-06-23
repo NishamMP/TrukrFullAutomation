@@ -1,5 +1,6 @@
 package objects;
 
+import java.io.IOException;
 import java.time.Duration;
 
 import org.openqa.selenium.By;
@@ -7,6 +8,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import readData.ReadData;
 
 public class TripCreatePopup {
 	WebDriver driver;
@@ -42,9 +45,13 @@ public class TripCreatePopup {
 	public String truckSearchFieldPath="/html/body/app-root/app-home/section/div/app-home-workbench/div/div/app-home-workbench-mytrip/div/div[3]/app-home-workbench-allocation/div/div[3]/div/input";
 	public String truckSelectAvailble="/html/body/app-root/app-home/section/div/app-home-workbench/div/div/app-home-workbench-mytrip/div/div[3]/app-home-workbench-allocation/div/div[4]/div[1]/div[2]";
 	public String truckAllocateButtonPath="/html/body/app-root/app-home/section/div/app-home-workbench/div/div/app-home-workbench-mytrip/div/div[3]/app-home-workbench-allocation/div/div[5]/button";
-	public void addNewTrip() throws InterruptedException {
+	public String tripIdField="//*[@id=\"id\"]/div/div/div[2]/div/div/div/div[2]/span/input";
+	public void addNewTrip() throws InterruptedException, IOException {
 		WebDriverWait wait=new WebDriverWait(driver,Duration.ofSeconds(10));
-		String tripId="myTrip119";
+		ReadData readData=new ReadData();
+		readData.DataReadTest();
+		Thread.sleep(1000);
+		String tripId=readData.tripId;
 			//add Button
 			wait.until(ExpectedConditions.invisibilityOfElementLocated(By.className("loader__overlay")));
 			WebElement addButton=wait.until(ExpectedConditions.elementToBeClickable(By.xpath(addButtonPath)));
@@ -111,20 +118,31 @@ public class TripCreatePopup {
 			//submit button
 			WebElement submitButton=wait.until(ExpectedConditions.elementToBeClickable(By.xpath(submitButtonPath)));
 			submitButton.click();
-			wait.until(ExpectedConditions.invisibilityOfElementLocated(By.className("loader__overlay")));
-			WebElement confirmCreation=wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(confirmTripCreationPath)));
-			confirmCreation.click();
 			
 	}
-	public void allocateTruck() throws InterruptedException {
-		//WebDriverWait wait=new WebDriverWait(driver,Duration.ofSeconds(10));
-		WebElement alloacteButton=driver.findElement(By.xpath(allocateButtonPath));
-		alloacteButton.isEnabled();
-		alloacteButton.click();
+	public void allocateTruck() throws InterruptedException, IOException {
+		ReadData readData=new ReadData();
+		readData.DataReadTest();
+		Thread.sleep(1000);
+		String deviceId=readData.deviceId;
+		String tripId=readData.tripId;
+		WebDriverWait wait=new WebDriverWait(driver,Duration.ofSeconds(10));
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.className("loader__overlay")));
+		driver.findElement(By.xpath(tripIdField)).sendKeys(tripId);
+		Thread.sleep(2000);
+		WebElement confirmCreation=wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(confirmTripCreationPath)));
+		confirmCreation.click();
+		WebElement allocateButton=driver.findElement(By.xpath(allocateButtonPath));
+		allocateButton.click();
+		//wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(allocateButtonPath)));
 		Thread.sleep(3000);
 		WebElement truckLink=driver.findElement(By.xpath(allocatePopUpTruck));
 		truckLink.click();
 		Thread.sleep(3000);
+		WebElement searchInputBar=driver.findElement(By.xpath(truckSearchFieldPath));
+		Thread.sleep(1000);
+		searchInputBar.sendKeys(deviceId);
+		Thread.sleep(2000);
 		WebElement truckSelct=driver.findElement(By.xpath(truckSelectAvailble));
 		truckSelct.click();
 		WebElement allocateButtonPopUp=driver.findElement(By.xpath(truckAllocateButtonPath));
