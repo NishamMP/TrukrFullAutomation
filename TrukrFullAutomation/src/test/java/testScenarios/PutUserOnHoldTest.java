@@ -10,7 +10,7 @@ import objects.LoginPageObjects;
 public class PutUserOnHoldTest extends BaseTest{
 		
 		@Test
-		public void putUserOnHoldTest() throws InterruptedException {	
+		public void putUserOnHoldTest() throws InterruptedException {
 			AdminObjects adminObjects=new AdminObjects();
 			adminObjects.putUserOnHold();
 			

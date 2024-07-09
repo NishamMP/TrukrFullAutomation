@@ -13,8 +13,9 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
 import com.framework.BaseTest;
+import com.framework.BrowserBaseTest;
 
-public class TripPageObjects extends BaseTest{
+public class TripPageObjects extends BrowserBaseTest{
 	WebDriver driver;
 	By adminButton=By.xpath("/html/body/app-root/app-home/app-page-header/div/div[2]/div[2]/button");
 	By logoutButton=By.xpath("/html/body/app-root/app-home/app-page-header/div/div[2]/div[2]/div/div[4]");
@@ -23,21 +24,20 @@ public class TripPageObjects extends BaseTest{
 
 		this.driver=driver;
 	}
-	
-	//public String addButtonPath="/html/body/app-root/app-home/section/div/app-home-workbench/div/ul/li/div/a/text()";
-    public WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 	public void confirmTitlePage() {
-		WebElement addButton=driver.findElement(By.linkText("Trips"));
-        String buttonText = addButton.getText();
-        String expectedButtonText="Trips";
-        Assert.assertEquals(buttonText, expectedButtonText);
-        
+	    System.out.println("Driver is: " + driver);
+	    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+	    WebElement addButton = wait.until(ExpectedConditions.visibilityOfElementLocated(By.linkText("Trips")));
+	    String buttonText = addButton.getText();
+	    String expectedButtonText = "Trips";
+	    Assert.assertEquals(buttonText, expectedButtonText);
 	}
-	public void logoutUser() throws InterruptedException {
-		Thread.sleep(5000);
-		driver.findElement(adminButton).click();
-		driver.findElement(logoutButton).click();
-		Thread.sleep(2000);
+
+
+	public void logoutUser(){
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+		wait.until(ExpectedConditions.elementToBeClickable(adminButton)).click();
+		wait.until(ExpectedConditions.elementToBeClickable(logoutButton)).click();
 		Alert alert=driver.switchTo().alert();
 		alert.accept();
 	}

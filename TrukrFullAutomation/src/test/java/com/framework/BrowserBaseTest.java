@@ -23,8 +23,6 @@ public class BrowserBaseTest {
 	        driver = new ChromeDriver();
 	        driver.get("https://smartlinks-qa.trukr.live");
 	        driver.manage().window().maximize();
-	        ExtentSparkReporter spark = new ExtentSparkReporter("target/Spark.html");
-	        extent.attachReporter(spark);
 	    }
 
 }

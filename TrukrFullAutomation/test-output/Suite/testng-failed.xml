@@ -3,63 +3,12 @@
 <suite name="Failed suite [Suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Test(failed)">
     <classes>
-      <class name="testScenarios.UserPasswordReset">
-        <methods>
-          <include name="resetUserPassewordTest"/>
-          <include name="setup"/>
-        </methods>
-      </class> <!-- testScenarios.UserPasswordReset -->
-      <class name="testScenarios.DeleteUserTest">
+      <class name="com.Login.LoginTest">
         <methods>
           <include name="setup"/>
-          <include name="deleteUserTest"/>
+          <include name="loginTest" invocation-numbers="0 4"/>
         </methods>
-      </class> <!-- testScenarios.DeleteUserTest -->
-      <class name="testScenarios.PutUserActiveTest">
-        <methods>
-          <include name="setup"/>
-          <include name="putUserActiveTest"/>
-        </methods>
-      </class> <!-- testScenarios.PutUserActiveTest -->
-      <class name="testScenarios.CheckUserOnHoldUsingLoginTest">
-        <methods>
-          <include name="closeDriver"/>
-          <include name="checkUserOnHoldUsingLoginTest"/>
-          <include name="setup"/>
-        </methods>
-      </class> <!-- testScenarios.CheckUserOnHoldUsingLoginTest -->
-      <class name="testScenarios.NewUserLoginTest">
-        <methods>
-          <include name="closeDriver"/>
-          <include name="setup"/>
-          <include name="newUserLoginTest"/>
-        </methods>
-      </class> <!-- testScenarios.NewUserLoginTest -->
-      <class name="testScenarios.LoginTestAfterPasswordReset">
-        <methods>
-          <include name="loginTestAfterPasswordReset"/>
-          <include name="closeDriver"/>
-          <include name="setup"/>
-        </methods>
-      </class> <!-- testScenarios.LoginTestAfterPasswordReset -->
-      <class name="testScenarios.PutUserOnHoldTest">
-        <methods>
-          <include name="setup"/>
-          <include name="putUserOnHoldTest"/>
-        </methods>
-      </class> <!-- testScenarios.PutUserOnHoldTest -->
-      <class name="testScenarios.AddNewUserTest">
-        <methods>
-          <include name="setup"/>
-          <include name="addNewUserTest"/>
-        </methods>
-      </class> <!-- testScenarios.AddNewUserTest -->
-      <class name="testScenarios.ModifyUserDataTest">
-        <methods>
-          <include name="setup"/>
-          <include name="modifyUserDataTest"/>
-        </methods>
-      </class> <!-- testScenarios.ModifyUserDataTest -->
+      </class> <!-- com.Login.LoginTest -->
     </classes>
   </test> <!-- Test(failed) -->
 </suite> <!-- Failed suite [Suite] -->

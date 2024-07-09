@@ -1,11 +1,12 @@
 package testScenarios;
 
+import java.time.Duration;
+
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import com.framework.BrowserBaseTest;
@@ -20,7 +21,8 @@ public class LoginTestAfterPasswordReset extends BrowserBaseTest{
         Thread.sleep(5000);
         loginPageObjectsNew.sendDataTousernameFieldAndPasswordFieldAndEnterLoginButton("Nisham7356", "Pass@123");
         Thread.sleep(3000);
-        WebElement element = driver.findElement(By.className("error-message"));
+        WebDriverWait wait=new WebDriverWait(driver, Duration.ofSeconds(30));
+        WebElement element =wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("error-message"))) ;
         String extractedText = element.getText();
         Assert.assertEquals(extractedText, expectedText);
     }

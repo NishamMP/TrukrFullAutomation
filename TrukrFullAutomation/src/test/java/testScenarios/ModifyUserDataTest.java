@@ -1,5 +1,7 @@
 package testScenarios;
 
+import java.time.Duration;
+
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
@@ -13,6 +15,7 @@ public class ModifyUserDataTest extends BaseTest{
 	
 	@Test
 	public void modifyUserDataTest() throws InterruptedException {
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
 		AdminObjects adminObjects=new AdminObjects();
 		adminObjects.modifyUserData();
 		Thread.sleep(5000);

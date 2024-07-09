@@ -8,9 +8,12 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.StaleElementReferenceException;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
+
 import com.framework.BaseTest;
 
 public class AdminObjects extends BaseTest {
@@ -48,6 +51,8 @@ public class AdminObjects extends BaseTest {
     public String popUpGroupCodeNameSearchFieldPath="//*[@id=\"id\"]/div/div/div[3]/div/div/div[2]/span/input";
     public String index1GroupCodePath="//*[@id=\"id\"]/div/cdk-virtual-scroll-viewport/div[1]/div[1]/div[1]/div";
     
+    //Changing
+    
     //User page objects
     public String addUserButtonPath="//button[contains(., 'Add')]";
     public String deleteUserButtonPath="/html/body/app-root/app-home/section/div/app-home-admin/div/div/app-home-admin-users/div/div[1]/div[1]/div[2]/div/button";
@@ -73,6 +78,9 @@ public class AdminObjects extends BaseTest {
     public String userNameIndex1Select="//*[@id=\"data_table\"]/div[1]/div[1]/div[1]/div";
     public String userHoldIndex="/html/body/app-root/app-home/section/div/app-home-admin/div/div/app-home-admin-users/div/div[1]/div[1]/div[5]/div/div/div[1]/div/div";
     public String userActivateIndex="/html/body/app-root/app-home/section/div/app-home-admin/div/div/app-home-admin-users/div/div[1]/div[1]/div[5]/div/div/div[2]/div/div";
+    public String selectCountry="/html/body/app-root/app-home/section/div/app-home-admin/div/div/app-home-admin-users/div/div[3]/app-home-admin-add-user/div/div[2]/div/div[1]/div/div/div/div/div[7]/div/div/app-search-dropdown/div/div/div[1]";
+    public String selectCountrCode="//div[contains(@class, 'dropdown__items--container')]//div[contains(@class, 'filter-list-item') and contains(., 'AE - United Arab Emirates')]"; 
+    public String countrycodeField="/html/body/app-root/app-home/section/div/app-home-admin/div/div/app-home-admin-users/div/div[3]/app-home-admin-add-user/div/div[2]/div/div[1]/div/div/div/div/div[9]/div/div/input[1]";
     public String userId="Nisham7356";
     public String userPassword="Pass@123";
     public String userNewPassword="Testing@123";
@@ -82,6 +90,15 @@ public class AdminObjects extends BaseTest {
     String overlayPath = "//div[contains(@class, 'loader__overlay')]";
     public WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
     private JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
+    
+    //User Datas
+	public static String userLoginIdRead;
+	public static String nameOfUserRead;
+	public static String userEmailRead;
+	public static String userPasswordRead;
+	public static String userTypeRead;
+	public static String logisticsGroupRead;
+	public static String groupsRead;
     public void addGroup() throws InterruptedException {
         wait.until(ExpectedConditions.invisibilityOfElementLocated(By.className("loader__overlay")));
         Thread.sleep(10000);
@@ -162,15 +179,97 @@ public class AdminObjects extends BaseTest {
     
     
     
-    
-    
-    
-    
-    public void addNewUser() throws InterruptedException{
+    public void checkCounryCodeChangingOrNot(){
         WebElement adminPage=wait.until(ExpectedConditions.elementToBeClickable(By.xpath(adminPageLinkPath)));
         adminPage.click();
-        WebElement userPageInsideAdmin=wait.until(ExpectedConditions.elementToBeClickable(By.xpath(userPageInsideAdminPath)));
-        userPageInsideAdmin.click();
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(overlayPath)));
+        WebElement addUser=wait.until(ExpectedConditions.elementToBeClickable(By.xpath(addUserButtonPath)));
+        addUser.click();
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath(selectCountry))).click();
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath(selectCountrCode))).click();
+        WebElement inputField = driver.findElement(By.cssSelector("input.small-field"));
+        String inputText = inputField.getAttribute("value");
+        System.out.println("Text from input field: " + inputText);
+        Assert.assertEquals(inputText,"971");
+        driver.findElement(By.xpath("/html/body/app-root/app-home/section/div/app-home-admin/div/div/app-home-admin-users/div/div[3]/app-home-admin-add-user/div/div[1]/img[2]")).click();
+    }
+    public void checkUtcTimeChangingOrNot(){
+//        WebElement adminPage=wait.until(ExpectedConditions.elementToBeClickable(By.xpath(adminPageLinkPath)));
+//        adminPage.click();
+//        WebElement userPageInsideAdmin=wait.until(ExpectedConditions.elementToBeClickable(By.xpath(userPageInsideAdminPath)));
+//        userPageInsideAdmin.click();
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(overlayPath)));
+        WebElement addUser=wait.until(ExpectedConditions.elementToBeClickable(By.xpath(addUserButtonPath)));
+        addUser.click();
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath(selectCountry))).click();
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath(selectCountrCode))).click();   	
+        WebElement divElement = driver.findElement(By.xpath("/html/body/app-root/app-home/section/div/app-home-admin/div/div/app-home-admin-users/div/div[3]/app-home-admin-add-user/div/div[2]/div/div[1]/div/div/div/div/div[8]/div/div/app-search-dropdown/div/div/div[1]/div"));
+        String divText = divElement.getText();
+        driver.findElement(By.xpath("/html/body/app-root/app-home/section/div/app-home-admin/div/div/app-home-admin-users/div/div[3]/app-home-admin-add-user/div/div[1]/img[2]")).click();
+        Assert.assertEquals(divText, "UTC+04:00");
+        
+    }
+    
+    public void navigateToAddUserPage() {
+        WebElement adminPage=wait.until(ExpectedConditions.elementToBeClickable(By.xpath(adminPageLinkPath)));
+        adminPage.click();
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(overlayPath)));
+    }
+    
+    public void clickAddUserButton() {
+    	wait.until(ExpectedConditions.invisibilityOfElementLocated(By.className("loader__overlay")));
+        WebElement addUser=wait.until(ExpectedConditions.elementToBeClickable(By.xpath(addUserButtonPath)));
+        addUser.click();
+    }
+    public void sendLoginId() {
+        WebElement loginIdInput=wait.until(ExpectedConditions.elementToBeClickable(By.xpath(loginIdPopUpPath)));
+        loginIdInput.sendKeys(userId);
+    }
+    public void sendUserName() {
+        WebElement userNameInput=wait.until(ExpectedConditions.elementToBeClickable(By.xpath(userNamePopUpPath)));
+        userNameInput.sendKeys(userName);
+    }
+    public void sendEmail() {
+        WebElement userEmailInput=wait.until(ExpectedConditions.elementToBeClickable(By.xpath(userEmailPopUpPath)));
+        userEmailInput.sendKeys(userEmail);
+    }
+    public void sendPassword() {
+        WebElement userPasswordInput=wait.until(ExpectedConditions.elementToBeClickable(By.xpath(userPasswordPopUpPath)));
+        userPasswordInput.sendKeys(userPassword);
+    }
+    public void selectUserType() throws InterruptedException {
+        WebElement userType=wait.until(ExpectedConditions.elementToBeClickable(By.xpath(userTypePopUpPath)));
+        userType.click();
+        List<WebElement> options=driver.findElements(By.xpath(userTypeIndexes));
+        for(WebElement option:options) {
+        	String elementText = option.getText().trim();
+            if(elementText.equals("Non Admin")) {
+            	wait.until(ExpectedConditions.elementToBeClickable(option));
+            	option.click();
+            	forNonAdmin();
+            }
+        }
+    }
+    public void selectCountry() {
+    	
+    }
+    public void selectTimeZone() {
+    	
+    }
+    public void sendPhoneNumber() {
+    	
+    }
+    public void selectLanguage() {
+    	
+    }
+    public void selectPasswordPolicy() {
+    	
+    }
+    public void addNewUser() throws InterruptedException{
+//        WebElement adminPage=wait.until(ExpectedConditions.elementToBeClickable(By.xpath(adminPageLinkPath)));
+//        adminPage.click();
+//        WebElement userPageInsideAdmin=wait.until(ExpectedConditions.elementToBeClickable(By.xpath(userPageInsideAdminPath)));
+//        userPageInsideAdmin.click();
         wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(overlayPath)));
         WebElement addUser=wait.until(ExpectedConditions.elementToBeClickable(By.xpath(addUserButtonPath)));
         addUser.click();
@@ -200,7 +299,6 @@ public class AdminObjects extends BaseTest {
     public void deleteUser() {
     	wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(overlayPath)));
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath(adminPageLinkPath))).click();
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath(userPageInsideAdminPath))).click();
         wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(overlayPath)));
         WebElement userNameSearchField = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(userNameInputFieldSearchPath)));
         userNameSearchField.sendKeys(userId);
@@ -216,34 +314,34 @@ public class AdminObjects extends BaseTest {
     public void modifyUserData() throws InterruptedException{
     	wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(overlayPath)));
         WebElement UserNameSeachField=wait.until(ExpectedConditions.elementToBeClickable(By.xpath(userNameInputFieldSearchPath)));
-    	UserNameSeachField.sendKeys(userId);
+        UserNameSeachField.clear();
+        UserNameSeachField.sendKeys(userId);
     	wait.until(ExpectedConditions.elementToBeClickable(By.xpath(userNameIndex1Select))).click();
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath(modifyUserButtonPath))).click();
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath(userNamePopUpPath))).clear();
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath(userNameModifyPopUpPath))).sendKeys(userNameModified);
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath(submitButtonUserPopUpPath))).click();
         wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(overlayPath)));
-        UserNameSeachField.clear();
+        
     }
     public void resetPassword() throws InterruptedException {
     	wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(overlayPath)));
         WebElement UserNameSeachField=wait.until(ExpectedConditions.elementToBeClickable(By.xpath(userNameInputFieldSearchPath)));
-    	UserNameSeachField.sendKeys(userId);
+        UserNameSeachField.clear();
+        UserNameSeachField.sendKeys(userId);
     	wait.until(ExpectedConditions.elementToBeClickable(By.xpath(userNameIndex1Select))).click();
     	wait.until(ExpectedConditions.elementToBeClickable(By.xpath(resetPasswordButtonPath))).click();
     	wait.until(ExpectedConditions.elementToBeClickable(By.xpath(userPassModofifiedPath))).clear();
     	wait.until(ExpectedConditions.elementToBeClickable(By.xpath(userPassModofifiedPath))).sendKeys(userNewPassword);
     	wait.until(ExpectedConditions.elementToBeClickable(By.xpath(submitButtonUserPopUpPath))).click();
-    	UserNameSeachField.clear();
     	wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(overlayPath)));
     }
     public void putUserOnHold() throws InterruptedException {
    	 WebElement adminPage=wait.until(ExpectedConditions.elementToBeClickable(By.xpath(adminPageLinkPath)));
      adminPage.click();
-     WebElement userPageInsideAdmin=wait.until(ExpectedConditions.elementToBeClickable(By.xpath(userPageInsideAdminPath)));
-     userPageInsideAdmin.click();
         WebElement UserNameSeachField=wait.until(ExpectedConditions.elementToBeClickable(By.xpath(userNameInputFieldSearchPath)));
-    	UserNameSeachField.sendKeys(userId);
+        UserNameSeachField.clear();
+        UserNameSeachField.sendKeys(userId);
     	wait.until(ExpectedConditions.elementToBeClickable(By.xpath(userNameIndex1Select))).click();
     	wait.until(ExpectedConditions.elementToBeClickable(By.xpath(statusButton))).click();
     	Thread.sleep(2000);
@@ -262,11 +360,10 @@ public class AdminObjects extends BaseTest {
     public void putUserActivate() throws InterruptedException {
     	 WebElement adminPage=wait.until(ExpectedConditions.elementToBeClickable(By.xpath(adminPageLinkPath)));
          adminPage.click();
-         WebElement userPageInsideAdmin=wait.until(ExpectedConditions.elementToBeClickable(By.xpath(userPageInsideAdminPath)));
-         userPageInsideAdmin.click();
     	wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath(overlayPath)));
         WebElement UserNameSeachField=wait.until(ExpectedConditions.elementToBeClickable(By.xpath(userNameInputFieldSearchPath)));
-    	UserNameSeachField.sendKeys(userId);
+        UserNameSeachField.clear();
+        UserNameSeachField.sendKeys(userId);
     	wait.until(ExpectedConditions.elementToBeClickable(By.xpath(userNameIndex1Select))).click();
     	wait.until(ExpectedConditions.elementToBeClickable(By.xpath(statusButton))).click();
     	Thread.sleep(2000);
@@ -312,8 +409,7 @@ public class AdminObjects extends BaseTest {
         WebElement element = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(groupIndex1Path)));
      ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
      element.click();
-    }
-    
+    }   
 }
 
 

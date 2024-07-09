@@ -23,7 +23,7 @@ public class TripCreateTest extends BaseTest{
             createTripTest.log(Status.PASS, "This is a Test For Creating A Trip and its got PASSED");
         } catch (Exception e) {
             createTripTest.log(Status.FAIL, "This is a Test For Creating A Trip and its got FAILED");
-            throw e; // Explicitly throw the exception to mark the test as failed
+            throw e;
         }
         
     }

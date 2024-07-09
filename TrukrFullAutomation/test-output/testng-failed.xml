@@ -3,12 +3,13 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="testScenarios.AddLocationMasterDataTest">
+      <class name="testScenarios.AddDriverDataTest">
         <methods>
+          <include name="addDriverTest"/>
           <include name="setup"/>
-          <include name="addLocationTest"/>
+          <include name="setUpForeTest"/>
         </methods>
-      </class> <!-- testScenarios.AddLocationMasterDataTest -->
+      </class> <!-- testScenarios.AddDriverDataTest -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

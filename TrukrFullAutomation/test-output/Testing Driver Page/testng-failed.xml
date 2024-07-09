@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Failed suite [Testing Driver Page]" guice-stage="DEVELOPMENT">
+  <test thread-count="5" name="Test(failed)">
+    <classes>
+      <class name="testScenarios.DeleteDriverDataTest">
+        <methods>
+          <include name="tearDown"/>
+          <include name="setup"/>
+          <include name="deleteDriverDataTest"/>
+        </methods>
+      </class> <!-- testScenarios.DeleteDriverDataTest -->
+      <class name="testScenarios.AddDriverDataTest">
+        <methods>
+          <include name="addDriverTest" invocation-numbers="0"/>
+          <include name="setup"/>
+          <include name="setUpForeTest"/>
+        </methods>
+      </class> <!-- testScenarios.AddDriverDataTest -->
+      <class name="testScenarios.ActivateDriverTest">
+        <methods>
+          <include name="setup"/>
+          <include name="driverActiveTest"/>
+        </methods>
+      </class> <!-- testScenarios.ActivateDriverTest -->
+      <class name="testScenarios.LoginDriverTest">
+        <methods>
+          <include name="loginAfterHoldDriver"/>
+          <include name="setup"/>
+        </methods>
+      </class> <!-- testScenarios.LoginDriverTest -->
+      <class name="testScenarios.LoginTestAfterHoldDriver">
+        <methods>
+          <include name="loginAfterHoldDriver"/>
+          <include name="setup"/>
+        </methods>
+      </class> <!-- testScenarios.LoginTestAfterHoldDriver -->
+      <class name="testScenarios.DriverHoldTest">
+        <methods>
+          <include name="driverHoldTest"/>
+          <include name="setup"/>
+        </methods>
+      </class> <!-- testScenarios.DriverHoldTest -->
+    </classes>
+  </test> <!-- Test(failed) -->
+</suite> <!-- Failed suite [Testing Driver Page] -->

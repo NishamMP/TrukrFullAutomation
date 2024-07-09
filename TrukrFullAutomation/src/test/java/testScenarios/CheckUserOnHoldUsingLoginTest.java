@@ -10,7 +10,6 @@ import com.framework.BrowserBaseTest;
 import objects.LoginObjectsNew;
 
 public class CheckUserOnHoldUsingLoginTest extends BrowserBaseTest{
-	
 	@Test(dependsOnMethods = "testScenarios.PutUserOnHoldTest.putUserOnHoldTest")
     public void checkUserOnHoldUsingLoginTest() throws InterruptedException {
         String expectedText = "Something went wrong. Please contact your administrator";
